@@ -20,22 +20,47 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // RedisBackupSpec defines the desired state of RedisBackup
 type RedisBackupSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Name of the Redis cluster to back up
+	ClusterName string `json:"clusterName"`
 
-	// Foo is an example field of RedisBackup. Edit redisbackup_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Backup storage configuration
+	Storage BackupStorage `json:"storage"`
+
+	// Duration to retain backups
+	RetentionPeriod string `json:"retentionPeriod,omitempty"`
+}
+
+type BackupStorage struct {
+	// S3 compatible storage
+	S3 *S3Storage `json:"s3,omitempty"`
+
+	// GCS compatible storage
+	//GCS *GCSStorage `json:"gcs,omitempty"`
+
+	// Azure compatible storage
+	//Azure *AzureStorage `json:"azure,omitempty"`
+}
+
+type S3Storage struct {
+	// S3 bucket name
+	Bucket string `json:"bucket"`
+
+	// S3 endpoint
+	Endpoint string `json:"endpoint"`
+
+	// S3 secret reference
+	SecretRef string `json:"secretRef"`
 }
 
 // RedisBackupStatus defines the observed state of RedisBackup
 type RedisBackupStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Backup state
+	State bool `json:"state"`
+
+	// Conditions represent the latest available observations of a backup's state
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 // +kubebuilder:object:root=true
