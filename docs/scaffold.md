@@ -68,3 +68,24 @@ $ make generate
 $ make manifests
 /Users/vishal/workspace/vishalanarase/redis-operator/bin/controller-gen rbac:roleName=manager-role crd webhook paths="./..." output:crd:artifacts:config=config/crd/bases
 ```
+
+## Webhook Configuration
+```bash
+operator-sdk create webhook --group app --version v1 --kind RedisCluster --defaulting --programmatic-validation
+```
+
+<details>
+<summary>Output</summary>
+INFO[0000] Writing kustomize manifests for you to edit...
+INFO[0000] Writing scaffold for you to edit...
+INFO[0000] api/v1/rediscluster_webhook.go
+INFO[0000] api/v1/rediscluster_webhook_test.go
+INFO[0000] api/v1/webhook_suite_test.go
+INFO[0002] Update dependencies:
+$ go mod tidy
+INFO[0002] Running make:
+$ make generate
+/Users/vishal/workspace/vishalanarase/redis-operator/bin/controller-gen object:headerFile="hack/boilerplate.go.txt" paths="./..."
+Next: implement your new Webhook and generate the manifests with:
+$ make manifests
+</details>
