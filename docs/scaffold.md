@@ -70,6 +70,8 @@ $ make manifests
 ```
 
 ## Webhook Configuration
+
+### RedisCluster Webhook
 ```bash
 operator-sdk create webhook --group app --version v1 --kind RedisCluster --defaulting --programmatic-validation
 ```
@@ -89,3 +91,23 @@ $ make generate
 Next: implement your new Webhook and generate the manifests with:
 $ make manifests
 </details>
+
+### RedisBackup Webhook
+
+```bash
+❯ operator-sdk create webhook --group app --version v1 --kind RedisBackup --defaulting --programmatic-validation
+```
+
+INFO[0000] Writing kustomize manifests for you to edit...
+INFO[0000] Writing scaffold for you to edit...
+INFO[0000] api/v1/redisbackup_webhook.go
+INFO[0000] api/v1/redisbackup_webhook_test.go
+INFO[0000] api/v1/webhook_suite_test.go
+INFO[0000] Update dependencies:
+$ go mod tidy
+INFO[0000] Running make:
+$ make generate
+/Users/vishal/workspace/vishalanarase/redis-operator/bin/controller-gen object:headerFile="hack/boilerplate.go.txt" paths="./..."
+Next: implement your new Webhook and generate the manifests with:
+$ make manifests
+```

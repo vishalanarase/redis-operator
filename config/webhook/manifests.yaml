@@ -10,6 +10,26 @@ webhooks:
     service:
       name: webhook-service
       namespace: system
+      path: /mutate-app-devspace-com-v1-redisbackup
+  failurePolicy: Fail
+  name: mredisbackup.kb.io
+  rules:
+  - apiGroups:
+    - app.devspace.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - redisbackups
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
       path: /mutate-app-devspace-com-v1-rediscluster
   failurePolicy: Fail
   name: mrediscluster.kb.io
@@ -30,6 +50,26 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: validating-webhook-configuration
 webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-app-devspace-com-v1-redisbackup
+  failurePolicy: Fail
+  name: vredisbackup.kb.io
+  rules:
+  - apiGroups:
+    - app.devspace.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - redisbackups
+  sideEffects: None
 - admissionReviewVersions:
   - v1
   clientConfig:
