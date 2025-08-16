@@ -17,25 +17,42 @@ limitations under the License.
 package v1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // RedisClusterSpec defines the desired state of RedisCluster
 type RedisClusterSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Number of Redis instances in the cluster
+	Replicas int32 `json:"replicas"`
 
-	// Foo is an example field of RedisCluster. Edit rediscluster_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Redis image to use
+	Image string `json:"image,omitempty"`
+
+	// Persistence configuration
+	Persistence PersistenceConfig `json:"persistence,omitempty"`
+
+	// Resources requirements
+	Resources corev1.ResourceRequirements `json:"resources,omitempty"`
+}
+
+// PersistenceConfig defines persistence options
+type PersistenceConfig struct {
+	// Enable persistence for Redis
+	Enabled bool `json:"enabled"`
+
+	// Storage class for persistent volume
+	StorageClass string `json:"storageClass,omitempty"`
+
+	// Size of the persistent volume
+	Size string `json:"size,omitempty"`
 }
 
 // RedisClusterStatus defines the observed state of RedisCluster
 type RedisClusterStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	Nodes      []string           `json:"nodes,omitempty"`
+	Ready      bool               `json:"ready"`
+	Conditions []metav1.Condition `json:"conditions,omitempty"`
 }
 
 // +kubebuilder:object:root=true
