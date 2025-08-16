@@ -1,4 +1,5 @@
 ## Append samples of your project ##
 resources:
 - app_v1_rediscluster.yaml
+- app_v1_redisbackup.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples
